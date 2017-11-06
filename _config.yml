@@ -76,8 +76,6 @@ theme: clean-blog
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type:
 
 # URL of the Home page image
 index_cover: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509469488239&di=bd0d3d4191db1ccffdd7e5b498c5ffd7&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F6c224f4a20a44623f451a5a89122720e0df3d765.jpg

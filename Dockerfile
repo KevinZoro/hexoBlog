@@ -1,12 +1,4 @@
-FROM node:8.2
+FROM nginx:latest
 
-RUN npm install -g hexo --registry=https://registry.npm.taobao.org
-
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY . /usr/src/app
-
-EXPOSE 4000
-
-CMD ['hexo', 'server']
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY ./public /usr/share/nginx/html

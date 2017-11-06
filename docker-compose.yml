@@ -1,0 +1,6 @@
+version: '3'
+services:
+  hexo:
+    image: registry.cn-hangzhou.aliyuncs.com/kevinzoro/hexo-blog:latest
+    ports:
+      - "4000:80"
