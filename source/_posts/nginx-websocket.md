@@ -1,6 +1,6 @@
 ---
 title: nginx 代理 websocket
-date: 2017/10/31 20:46:25
+date: 2017/12/16 14:20:15
 tags: 
 - websocket
 - nginx
@@ -8,10 +8,7 @@ categories:
 - 技术
 comments: true
 ---
-最近使用socket.io来建立client和server的socket通讯服务，遇到了一个小问题
-在develop环境一切正常，但是上了staging之后socket通讯失败，握手失败，返回400 error
-经过一番google，发现staging上用了nginx代理，之前都是tcp服务，上了socket的话需要多加
-一些参数
+最近使用socket.io来建立client和server的socket通讯服务，遇到了一个小问题,在develop环境一切正常，但是上了staging之后socket通讯失败，握手失败返回400 error,经过一番google，发现staging上用了nginx代理，之前都是tcp服务，上了socket的话需要多加一些参数
 
 加之前配置如下:
 ```

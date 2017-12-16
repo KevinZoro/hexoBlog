@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="最近使用socket.io来建立client和server的socket通讯服务，遇到了一个小问题,在develop环境一切正常，但是上了staging之后socket通讯失败，握手失败返回400 error,经过一番google，发现staging上用了nginx代理，之前都是tcp服务，上了so">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Kevin&#39;s Blog">
+        <meta property="og:title" content="nginx 代理 websocket">
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv - Kevin&#39;s Blog</title>
+    <title>nginx 代理 websocket - Kevin&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -143,58 +145,78 @@
 
     <!-- Main Content -->
     <!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
 <header class="intro-header" style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509469488239&di=bd0d3d4191db1ccffdd7e5b498c5ffd7&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F6c224f4a20a44623f451a5a89122720e0df3d765.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archiv</h1>
+                <div class="post-heading">
+                    <h1>nginx 代理 websocket</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-16
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        <a href="/tags/websocket/">#websocket</a> <a href="/tags/nginx/">#nginx</a>
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        <a href="/categories/技术/">技术</a>
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2017/12/16/nginx-websocket/">
-        <h1 class="post-title archive">
-            nginx 代理 websocket
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-12-16
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2017/10/31/hello-world/">
-        <h1 class="post-title archive">
-            Hello Hexo
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-10-31
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>最近使用socket.io来建立client和server的socket通讯服务，遇到了一个小问题,在develop环境一切正常，但是上了staging之后socket通讯失败，握手失败返回400 error,经过一番google，发现staging上用了nginx代理，之前都是tcp服务，上了socket的话需要多加一些参数</p>
+<p>加之前配置如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">location @backend &#123;</div><div class="line">  proxy_set_header  X-Real-IP         $remote_addr;</div><div class="line">  proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</div><div class="line">  proxy_set_header  Host              $http_host;</div><div class="line"></div><div class="line">  proxy_redirect off;</div><div class="line">  proxy_max_temp_file_size 0;</div><div class="line"></div><div class="line">  proxy_cache one;</div><div class="line">  proxy_cache_key sfs$request_uri$scheme;</div><div class="line"></div><div class="line">  client_max_body_size 10M;</div><div class="line"></div><div class="line">  proxy_pass http://backend;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>加上最开始的参数，主要是这两句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">proxy_set_header  Upgrade     $http_upgrade;</div><div class="line">proxy_set_header  Connection  &quot;upgrade&quot;;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">location @backend &#123;</div><div class="line">  proxy_http_version 1.1;</div><div class="line">  proxy_set_header  Upgrade           $http_upgrade;</div><div class="line">  proxy_set_header  Connection        &quot;upgrade&quot;;</div><div class="line">  proxy_set_header  X-Real-IP         $remote_addr;</div><div class="line">  proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</div><div class="line">  proxy_set_header  Host              $http_host;</div><div class="line"></div><div class="line">  proxy_redirect off;</div><div class="line">  proxy_max_temp_file_size 0;</div><div class="line"></div><div class="line">  proxy_cache one;</div><div class="line">  proxy_cache_key sfs$request_uri$scheme;</div><div class="line"></div><div class="line">  client_max_body_size 10M;</div><div class="line"></div><div class="line">  proxy_pass http://backend;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有兴趣的可以去看官网的blog <a href="https://www.nginx.com/blog/websocket-nginx/" target="_blank" rel="external">nginx</a></p>
+<p>参考资料：</p>
+<p>1.<a href="https://github.com/socketio/socket.io/issues/1942" target="_blank" rel="external">socket.io Issue讨论</a></p>
+<p>2.<a href="https://www.nginx.com/blog/websocket-nginx/" target="_blank" rel="external">官网blog</a></p>
+
+                
+            </div>
+
+            <!-- Comments -->
             
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <section class="youyan" id="comments">
+  <!-- UY BEGIN -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2148142"></script>
+  <!-- UY END -->
+</section>
+                </div>
+            
         </div>
     </div>
-</div>
+</article>
 
     <!-- Footer -->
     <hr>
