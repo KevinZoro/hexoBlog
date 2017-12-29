@@ -20,6 +20,6 @@
   },
   "scripts": {
     "start": "hexo server",
-    "docker": "docker build -t registry.cn-hangzhou.aliyuncs.com/kevinzoro/hexo-blog:latest . && docker push registry.cn-hangzhou.aliyuncs.com/kevinzoro/hexo-blog:latest"
+    "docker": "hexo generate && docker build -t registry.cn-hangzhou.aliyuncs.com/kevinzoro/hexo-blog:latest . && docker push registry.cn-hangzhou.aliyuncs.com/kevinzoro/hexo-blog:latest"
   }
 }
